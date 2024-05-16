@@ -1,5 +1,10 @@
-function App() {
-	return <div className="div">Hello</div>;
-}
+import './App.css';
+import CommentSection from './components/CommentSection';
 
-export default App;
+export default function App() {
+	return (
+		<main className="app">
+			<CommentSection />
+		</main>
+	);
+}

@@ -2,4 +2,4 @@
   Comment Section App
 </h1>
 
-An example comment section built with React and Google's Material UI Design.
+A functional comment section app built with React using Google's Material UI Design.
