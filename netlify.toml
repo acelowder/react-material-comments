@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/comments/"
+  to = "https://acelowder-comments.netlify.app/"
+  status = 200
+  force = true
