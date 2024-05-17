@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Comment from './Comment';
+import Thread from './Thread';
 import './CommentSection.css';
 
 const initialComments = [
@@ -39,7 +39,7 @@ export default function CommentSection() {
 	return (
 		<div className="comment-section">
 			{comments.map((comment) => (
-				<Comment key={comment.id} comment={comment} />
+				<Thread key={comment.id} comment={comment} />
 			))}
 		</div>
 	);
