@@ -4,6 +4,12 @@
 	margin-bottom: 16px;
 }
 
+.comment-head {
+	display: flex;
+	gap: 6px;
+	align-items: end;
+}
+
 .avatar {
 	width: 40px;
 	height: 40px;
