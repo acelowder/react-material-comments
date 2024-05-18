@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import moment from 'moment';
+import Toolbar from './Toolbar';
 import './Comment.css';
 
 export default function Comment({ comment }) {
@@ -23,6 +24,7 @@ export default function Comment({ comment }) {
 					</Typography>
 				</div>
 				<Typography variant="body1">{comment.text}</Typography>
+				<Toolbar />
 			</div>
 		</div>
 	);
