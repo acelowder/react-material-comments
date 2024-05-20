@@ -5,7 +5,9 @@ export default function Thread({ comment }) {
 	return (
 		<div>
 			<Comment key={comment.id} comment={comment} />
-			{comment.replies && <Replies replies={comment.replies} />}
+			{comment.replies && (
+				<Replies replies={comment.replies} threadId={comment.id} />
+			)}
 		</div>
 	);
 }

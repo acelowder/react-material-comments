@@ -1,9 +1,19 @@
+import { useCommentsService } from './CommentSection.service';
 import { Typography } from '@mui/material';
 import moment from 'moment';
 import Toolbar from './Toolbar';
 import './Comment.css';
 
-export default function Comment({ comment }) {
+export default function Comment({ comment, threadId = null }) {
+	const {
+		likeReply,
+		getReplyNumLikes,
+		isReplyLiked,
+		likeComment,
+		getCommentNumLikes,
+		isCommentLiked,
+	} = useCommentsService();
+
 	return (
 		<div className="comment">
 			<img className="avatar" src={comment.avatar} />
@@ -24,7 +34,23 @@ export default function Comment({ comment }) {
 					</Typography>
 				</div>
 				<Typography variant="body1">{comment.text}</Typography>
-				<Toolbar />
+				<Toolbar
+					onLike={
+						threadId
+							? () => likeReply(threadId, comment.id)
+							: () => likeComment(comment.id)
+					}
+					isLiked={
+						threadId
+							? isReplyLiked(threadId, comment.id)
+							: isCommentLiked(comment.id)
+					}
+					numLikes={
+						threadId
+							? getReplyNumLikes(threadId, comment.id)
+							: getCommentNumLikes(comment.id)
+					}
+				/>
 			</div>
 		</div>
 	);

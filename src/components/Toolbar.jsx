@@ -1,12 +1,13 @@
 import { IconButton, Button, Typography } from '@mui/material';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
-export default function Toolbar() {
+export default function Toolbar({ onLike, isLiked, numLikes }) {
 	return (
 		<div>
-			<IconButton aria-label="like">
-				<ThumbUpOffAltIcon />
+			<IconButton aria-label="like" onClick={onLike}>
+				{isLiked ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
 			</IconButton>
 			<Typography
 				variant="body2"
@@ -16,7 +17,7 @@ export default function Toolbar() {
 				}}
 				display="inline"
 			>
-				2
+				{numLikes}
 			</Typography>
 			<IconButton aria-label="dislike" sx={{ ml: 0.5 }}>
 				<ThumbDownOffAltIcon />
