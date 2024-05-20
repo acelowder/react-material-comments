@@ -6,12 +6,16 @@ import './Comment.css';
 
 export default function Comment({ comment, threadId = null }) {
 	const {
-		likeReply,
-		getReplyNumLikes,
-		isReplyLiked,
 		likeComment,
+		dislikeComment,
 		getCommentNumLikes,
 		isCommentLiked,
+		isCommentDisliked,
+		likeReply,
+		dislikeReply,
+		getReplyNumLikes,
+		isReplyLiked,
+		isReplyDisliked,
 	} = useCommentsService();
 
 	return (
@@ -37,18 +41,28 @@ export default function Comment({ comment, threadId = null }) {
 				<Toolbar
 					onLike={
 						threadId
-							? () => likeReply(threadId, comment.id)
+							? () => likeReply(comment.id, threadId)
 							: () => likeComment(comment.id)
 					}
 					isLiked={
 						threadId
-							? isReplyLiked(threadId, comment.id)
+							? isReplyLiked(comment.id, threadId)
 							: isCommentLiked(comment.id)
 					}
 					numLikes={
 						threadId
-							? getReplyNumLikes(threadId, comment.id)
+							? getReplyNumLikes(comment.id, threadId)
 							: getCommentNumLikes(comment.id)
+					}
+					onDislike={
+						threadId
+							? () => dislikeReply(comment.id, threadId)
+							: () => dislikeComment(comment.id)
+					}
+					isDisliked={
+						threadId
+							? isReplyDisliked(comment.id, threadId)
+							: isCommentDisliked(comment.id)
 					}
 				/>
 			</div>

@@ -42,27 +42,71 @@ export const initialComments = [
 	},
 ];
 
-// Comments Array
 export const useCommentsService = () => {
 	const [comments, setComments] = useState(initialComments);
 
 	const likeComment = (id) => {
-		const newComments = comments.map((mapComment) => {
+		const updatedComments = comments.map((mapComment) => {
 			if (mapComment.id === id) {
 				return {
 					...mapComment,
 					likes: mapComment.likes.includes(userId)
-						? mapComment.likes.filter((filterId) => filterId !== userId)
+						? mapComment.likes.filter(
+								(filterId) => filterId !== userId
+						  )
 						: [...mapComment.likes, userId],
+					dislikes: mapComment.dislikes.includes(userId)
+						? mapComment.dislikes.filter(
+								(filterId) => filterId !== userId
+						  )
+						: mapComment.dislikes,
 				};
 			}
 			return mapComment;
 		});
-		setComments(newComments);
+		setComments(updatedComments);
 	};
 
-	const likeReply = (threadId, id) => {
-		const newComments = comments.map((mapComment) => {
+	const dislikeComment = (id) => {
+		const updatedComments = comments.map((mapComment) => {
+			if (mapComment.id === id) {
+				return {
+					...mapComment,
+					dislikes: mapComment.dislikes.includes(userId)
+						? mapComment.dislikes.filter(
+								(filterId) => filterId !== userId
+						  )
+						: [...mapComment.dislikes, userId],
+					likes: mapComment.likes.includes(userId)
+						? mapComment.likes.filter(
+								(filterId) => filterId !== userId
+						  )
+						: mapComment.likes,
+				};
+			}
+			return mapComment;
+		});
+		setComments(updatedComments);
+	};
+
+	const getCommentNumLikes = (id) => {
+		return comments.find((mapComment) => mapComment.id === id).likes.length;
+	};
+
+	const isCommentLiked = (id) => {
+		return comments
+			.find((mapComment) => mapComment.id === id)
+			.likes.includes(userId);
+	};
+
+	const isCommentDisliked = (id) => {
+		return comments
+			.find((mapComment) => mapComment.id === id)
+			.dislikes.includes(userId);
+	};
+
+	const likeReply = (id, threadId) => {
+		const updatedComments = comments.map((mapComment) => {
 			if (mapComment.id === threadId) {
 				return {
 					...mapComment,
@@ -75,6 +119,11 @@ export const useCommentsService = () => {
 											(filterId) => filterId !== userId
 									  )
 									: [...mapReply.likes, userId],
+								dislikes: mapReply.dislikes.includes(userId)
+									? mapReply.dislikes.filter(
+											(filterId) => filterId !== userId
+									  )
+									: mapReply.dislikes,
 							};
 						}
 						return mapReply;
@@ -83,30 +132,57 @@ export const useCommentsService = () => {
 			}
 			return mapComment;
 		});
-		setComments(newComments);
+		setComments(updatedComments);
 	};
 
-	const getCommentNumLikes = (id) => {
-		return comments.find((mapComment) => mapComment.id === id).likes.length;
+	const dislikeReply = (id, threadId) => {
+		const updatedComments = comments.map((mapComment) => {
+			if (mapComment.id === threadId) {
+				return {
+					...mapComment,
+					replies: mapComment.replies.map((mapReply) => {
+						if (mapReply.id === id) {
+							return {
+								...mapReply,
+								dislikes: mapReply.dislikes.includes(userId)
+									? mapReply.dislikes.filter(
+											(filterId) => filterId !== userId
+									  )
+									: [...mapReply.dislikes, userId],
+								likes: mapReply.likes.includes(userId)
+									? mapReply.likes.filter(
+											(filterId) => filterId !== userId
+									  )
+									: mapReply.likes,
+							};
+						}
+						return mapReply;
+					}),
+				};
+			}
+			return mapComment;
+		});
+		setComments(updatedComments);
 	};
 
-	const getReplyNumLikes = (threadId, id) => {
+	const getReplyNumLikes = (id, threadId) => {
 		return comments
 			.find((mapComment) => mapComment.id === threadId)
 			.replies.find((mapReply) => mapReply.id === id).likes.length;
 	};
 
-	const isCommentLiked = (id) => {
-		return comments
-			.find((mapComment) => mapComment.id === id)
-			.likes.includes(userId);
-	};
-
-	const isReplyLiked = (threadId, id) => {
+	const isReplyLiked = (id, threadId) => {
 		return comments
 			.find((mapComment) => mapComment.id === threadId)
 			.replies.find((mapReply) => mapReply.id === id)
 			.likes.includes(userId);
+	};
+
+	const isReplyDisliked = (id, threadId) => {
+		return comments
+			.find((mapComment) => mapComment.id === threadId)
+			.replies.find((mapReply) => mapReply.id === id)
+			.dislikes.includes(userId);
 	};
 
 	useEffect(() => {
@@ -116,9 +192,13 @@ export const useCommentsService = () => {
 		comments,
 		likeComment,
 		likeReply,
+		dislikeComment,
+		dislikeReply,
 		getCommentNumLikes,
 		getReplyNumLikes,
 		isCommentLiked,
 		isReplyLiked,
+		isCommentDisliked,
+		isReplyDisliked,
 	};
 };
