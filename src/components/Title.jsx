@@ -1,6 +1,9 @@
 import { Typography } from '@mui/material';
 
-const titleStyles = { mb: 1, fontWeight: 'bold' };
+const titleStyles = {
+	mb: 1,
+	fontWeight: 'bold',
+};
 
 export default function Title(props) {
 	return (

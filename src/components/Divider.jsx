@@ -1,6 +1,6 @@
 const dividerStyles = {
 	border: 'none',
-	borderTop: '1px solid #888',
+	borderTop: '1px solid #aaa',
 };
 
 export default function Divider() {

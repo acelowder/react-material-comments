@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, createContext } from 'react';
 
 import InputForm from './InputForm';
-import LargeTextButton from '../components/LargeTextButton';
+import InputToolbar from './InputToolbar';
 
 const inputContainerStyles = {
 	marginTop: '16px',
@@ -24,18 +24,14 @@ export default function InputContainer() {
 	);
 
 	useEffect(() => {
-		drafting && setCommentText('');
+		!drafting && setCommentText('');
 	}, [drafting]);
 
 	return (
 		<draftContext.Provider value={contextValues}>
 			<div style={inputContainerStyles}>
 				<InputForm />
-				{drafting && (
-					<LargeTextButton onClick={() => setDrafting(false)}>
-						Cancel
-					</LargeTextButton>
-				)}
+				{drafting && <InputToolbar />}
 			</div>
 		</draftContext.Provider>
 	);

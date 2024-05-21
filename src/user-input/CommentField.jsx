@@ -1,5 +1,7 @@
 import { useContext } from 'react';
 
+import { Input } from '@mui/material';
+
 import { draftContext } from './InputContainer';
 
 const commentFieldStyles = {
@@ -10,10 +12,11 @@ export default function CommentField({ onClick }) {
 	const { commentText, setCommentText } = useContext(draftContext);
 
 	return (
-		<input
+		<Input
 			type="text"
-			placeholder="Add a comment"
-			style={commentFieldStyles}
+			size="small"
+			placeholder="Add a comment..."
+			sx={commentFieldStyles}
 			value={commentText}
 			onChange={(e) => setCommentText(e.target.value)}
 			onClick={onClick}

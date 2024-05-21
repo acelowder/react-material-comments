@@ -2,15 +2,16 @@ import { Button } from '@mui/material';
 
 const roundTextButtonStyles = {
 	borderRadius: 8,
-	color: 'white',
+	px: 2,
+	fontSize: 13,
 	textTransform: 'none',
-	float: 'right',
+	color: 'white',
 	':hover': {
-		bgcolor: 'action.hover',
+		bgcolor: 'action.disabled',
 	},
 };
 
-export default function LargeTextButton({ onClick, ...props }) {
+export default function LargeTextButton({ onClick, children }) {
 	return (
 		<Button
 			variant="text"
@@ -18,7 +19,7 @@ export default function LargeTextButton({ onClick, ...props }) {
 			sx={roundTextButtonStyles}
 			onClick={onClick}
 		>
-			{props.children}
+			{children}
 		</Button>
 	);
 }
