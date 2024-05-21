@@ -1,7 +1,14 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import CommentSection from './components/CommentSection';
-import './App.css';
+import CommentSection from './comment-section/CommentSection';
+
+const appStyles = {
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	height: '100%',
+	marginTop: '40px',
+};
 
 const darkTheme = createTheme({
 	palette: {
@@ -13,7 +20,7 @@ export default function App() {
 	return (
 		<ThemeProvider theme={darkTheme}>
 			<CssBaseline />
-			<main className="app">
+			<main style={appStyles}>
 				<CommentSection />
 			</main>
 		</ThemeProvider>

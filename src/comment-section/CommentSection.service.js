@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
 
 export const userId = uuidv4();
-export const userName = 'github-user-' + userId.split('-').pop();
 export const userAvatar =
 	'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png';
+const userName = 'github-user-' + userId.split('-').pop();
 
 const JaneId = uuidv4();
 const JohnId = uuidv4();

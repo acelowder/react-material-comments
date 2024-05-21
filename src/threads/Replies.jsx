@@ -1,9 +1,12 @@
 import Comment from './Comment';
-import './Replies.css';
+
+const replyContainerStyles = {
+	marginLeft: '40px',
+};
 
 export default function Replies({ replies, threadId }) {
 	return (
-		<div className="replies">
+		<div style={replyContainerStyles}>
 			{replies.map((reply) => (
 				<Comment key={reply.id} comment={reply} threadId={threadId} />
 			))}
