@@ -1,5 +1,7 @@
 import { useContext } from 'react';
 
+import { commentsContext } from '../comment-section/CommentSection';
+import { useCommentsService } from '../comment-section/CommentSection.service';
 import { draftContext } from './InputContainer';
 
 import LargeTextButton from '../components/LargeTextButton';
@@ -14,13 +16,19 @@ const toolbarStyles = {
 };
 
 export default function InputToolbar() {
-	const { commentText, setDrafting } = useContext(draftContext);
+	const { comments, setComments } = useContext(commentsContext);
+	const { addComment } = useCommentsService(comments, setComments);
+
+	const { commentText, setCommentText, setDrafting } =
+		useContext(draftContext);
 
 	const handleCancel = () => {
 		setDrafting(false);
 	};
 
 	const handleComment = () => {
+		addComment(commentText);
+		setCommentText('');
 		setDrafting(false);
 	};
 

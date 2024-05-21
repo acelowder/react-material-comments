@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 export const userId = uuidv4();
@@ -44,9 +44,7 @@ export const initialComments = [
 	},
 ];
 
-export const useCommentsService = () => {
-	const [comments, setComments] = useState(initialComments);
-
+export const useCommentsService = (comments, setComments) => {
 	const likeComment = (id) => {
 		const updatedComments = comments.map((mapComment) => {
 			if (mapComment.id === id) {
@@ -187,9 +185,21 @@ export const useCommentsService = () => {
 			.dislikes.includes(userId);
 	};
 
-	useEffect(() => {
-		setComments(initialComments);
-	}, []);
+	const addComment = (text) => {
+		const comment = {
+			id: uuidv4(),
+			author: userName,
+			authorId: userId,
+			avatar: userAvatar,
+			text,
+			created: Date.now(),
+			likes: [userId],
+			dislikes: [],
+			replies: [],
+		};
+		setComments([comment, ...comments]);
+	};
+
 	return {
 		comments,
 		likeComment,
@@ -202,5 +212,6 @@ export const useCommentsService = () => {
 		isReplyLiked,
 		isCommentDisliked,
 		isReplyDisliked,
+		addComment,
 	};
 };

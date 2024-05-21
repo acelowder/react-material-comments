@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+
+import { commentsContext } from '../comment-section/CommentSection';
 import { useCommentsService } from '../comment-section/CommentSection.service';
 
 import SmallTextButton from '../components/SmallTextButton';
@@ -10,6 +13,8 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 export default function Toolbar({ comment, threadId }) {
+	const { comments, setComments } = useContext(commentsContext);
+
 	const {
 		likeComment,
 		dislikeComment,
@@ -21,7 +26,7 @@ export default function Toolbar({ comment, threadId }) {
 		getReplyNumLikes,
 		isReplyLiked,
 		isReplyDisliked,
-	} = useCommentsService();
+	} = useCommentsService(comments, setComments);
 
 	let onLike, onDislike, numLikes, isLiked, isDisliked;
 

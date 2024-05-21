@@ -4,10 +4,10 @@ const boldStyles = {
 	fontWeight: '500',
 };
 
-export default function Username(props) {
+export default function Username({ children }) {
 	return (
 		<Typography variant="body2">
-			@<span style={boldStyles}>props.children</span>
+			@<span style={boldStyles}>{children}</span>
 		</Typography>
 	);
 }
