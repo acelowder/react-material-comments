@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { initialComments } from './CommentSection.service.js';
 
@@ -16,6 +16,24 @@ const commentSectionStyles = {
 
 export default function CommentSection() {
 	const [comments, setComments] = useState(initialComments);
+
+	useEffect(() => {
+		if (!localStorage) return;
+
+		let localComments = localStorage.getItem('comments');
+		if (!localComments) return;
+
+		localComments = JSON.parse(localComments);
+		console.log('Loading: ', localComments);
+		setComments(localComments);
+	}, []);
+
+	useEffect(() => {
+		if (comments === initialComments) return;
+
+		localStorage.setItem('comments', JSON.stringify(comments));
+		console.log('Saving: ', JSON.parse(localStorage.getItem('comments')));
+	}, [comments]);
 
 	return (
 		<commentsContext.Provider value={{ comments, setComments }}>
