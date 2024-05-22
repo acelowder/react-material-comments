@@ -13,7 +13,7 @@ export default function Comment({ comment, threadId = null }) {
 	return (
 		<div style={commentContainerStyles}>
 			<Avatar src={comment.avatar} />
-			<div>
+			<div style={{ flexGrow: 1 }}>
 				<Header comment={comment} />
 				<Typography variant="body1">{comment.text}</Typography>
 				<Toolbar comment={comment} threadId={threadId} />

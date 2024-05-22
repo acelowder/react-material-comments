@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import { commentsContext } from '../comment-section/CommentSection';
 import { useCommentsService } from '../comment-section/CommentSection.service';
@@ -6,6 +6,7 @@ import { useCommentsService } from '../comment-section/CommentSection.service';
 import SmallTextButton from '../components/SmallTextButton';
 import ToggleIcon from '../components/ToggleIcon';
 import LikesCounter from '../components/LikesCounter';
+import InputContainer from '../user-input/InputContainer';
 
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -13,6 +14,8 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 export default function Toolbar({ comment, threadId }) {
+	const [replying, setReplying] = useState(false);
+
 	const { comments, setComments } = useContext(commentsContext);
 
 	const {
@@ -61,7 +64,17 @@ export default function Toolbar({ comment, threadId }) {
 				onClick={onDislike}
 				aria="dislike"
 			/>
-			<SmallTextButton>Reply</SmallTextButton>
+			<SmallTextButton onClick={() => setReplying(!replying)}>
+				Reply
+			</SmallTextButton>
+			{replying && (
+				<InputContainer
+					submitText={'Reply'}
+					threadId={threadId || comment.id}
+					onCancel={() => setReplying(false)}
+					initialText={threadId ? '@' + comment.author + ' ' : null}
+				/>
+			)}
 		</div>
 	);
 }

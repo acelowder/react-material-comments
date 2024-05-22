@@ -22,7 +22,7 @@ export default function CommentSection() {
 			<div style={commentSectionStyles}>
 				<Title>💬 Leave a Comment</Title>
 				<Divider />
-				<InputContainer />
+				<InputContainer submitText={'Comment'} />
 				{comments.map((comment) => (
 					<Thread key={comment.id} comment={comment} />
 				))}

@@ -5,20 +5,27 @@ import InputToolbar from './InputToolbar';
 
 const inputContainerStyles = {
 	marginTop: '16px',
-	marginBottom: '32px',
 };
 
 export const draftContext = createContext();
 
-export default function InputContainer() {
-	const [drafting, setDrafting] = useState(false);
-	const [commentText, setCommentText] = useState('');
+export default function InputContainer({
+	submitText,
+	threadId,
+	onCancel,
+	initialText,
+}) {
+	const [drafting, setDrafting] = useState(onCancel ? true : false);
+	const [commentText, setCommentText] = useState(initialText || '');
 	const contextValues = useMemo(
 		() => ({
 			drafting,
 			setDrafting,
 			commentText,
 			setCommentText,
+			submitText,
+			threadId,
+			onCancel,
 		}),
 		[drafting, commentText]
 	);

@@ -15,11 +15,11 @@ const formStyles = {
 };
 
 export default function InputForm() {
-	const { setDrafting } = useContext(draftContext);
+	const { setDrafting, threadId } = useContext(draftContext);
 
 	return (
 		<div style={formStyles}>
-			<Avatar src={userAvatar} />
+			<Avatar src={userAvatar} small={threadId ? true : false} />
 			<CommentField onClick={() => setDrafting(true)} />
 		</div>
 	);

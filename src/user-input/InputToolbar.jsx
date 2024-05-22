@@ -11,32 +11,40 @@ const toolbarStyles = {
 	display: 'flex',
 	gap: '8px',
 	justifyContent: 'flex-end',
-	marginTop: '8px',
-	marginBottom: '-32px',
+	marginTop: '-12px',
+	marginBottom: '-16px',
 };
 
 export default function InputToolbar() {
 	const { comments, setComments } = useContext(commentsContext);
 	const { addComment } = useCommentsService(comments, setComments);
 
-	const { commentText, setCommentText, setDrafting } =
-		useContext(draftContext);
+	const {
+		commentText,
+		setCommentText,
+		setDrafting,
+		submitText,
+		threadId,
+		onCancel,
+	} = useContext(draftContext);
 
 	const handleCancel = () => {
 		setDrafting(false);
 	};
 
 	const handleComment = () => {
-		addComment(commentText);
+		threadId ? addReply(commentText, threadId) : addComment(commentText);
 		setCommentText('');
 		setDrafting(false);
 	};
 
 	return (
 		<div style={toolbarStyles}>
-			<LargeTextButton onClick={handleCancel}>Cancel</LargeTextButton>
+			<LargeTextButton onClick={onCancel || handleCancel}>
+				Cancel
+			</LargeTextButton>
 			<PrimaryButton onClick={handleComment} disabled={!commentText}>
-				Comment
+				{submitText}
 			</PrimaryButton>
 		</div>
 	);

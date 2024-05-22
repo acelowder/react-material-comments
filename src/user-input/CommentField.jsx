@@ -13,14 +13,13 @@ const commentFieldStyles = {
 
 export default function CommentField({ onClick }) {
 	const { comments, setComments } = useContext(commentsContext);
-	const { addComment } = useCommentsService(comments, setComments);
+	const { addComment, addReply } = useCommentsService(comments, setComments);
 
-	const { commentText, setCommentText, setDrafting } =
-		useContext(draftContext);
+	const { commentText, setCommentText, threadId } = useContext(draftContext);
 
 	const handleEnter = (e) => {
 		e.preventDefault();
-		addComment(commentText);
+		threadId ? addReply(commentText, threadId) : addComment(commentText);
 		setCommentText('');
 	};
 

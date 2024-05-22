@@ -4,6 +4,13 @@ const avatarStyles = {
 	borderRadius: '50%',
 };
 
-export default function Avatar({ src }) {
-	return <img style={avatarStyles} src={src} />;
+const smallStyles = {
+	width: '28px',
+	height: '28px',
+	borderRadius: '50%',
+	marginBottom: '12px',
+};
+
+export default function Avatar({ src, small }) {
+	return <img style={small ? smallStyles : avatarStyles} src={src} />;
 }

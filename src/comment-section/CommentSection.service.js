@@ -200,6 +200,29 @@ export const useCommentsService = (comments, setComments) => {
 		setComments([comment, ...comments]);
 	};
 
+	const addReply = (text, threadId) => {
+		const reply = {
+			id: uuidv4(),
+			author: userName,
+			authorId: userId,
+			avatar: userAvatar,
+			text,
+			created: Date.now(),
+			likes: [userId],
+			dislikes: [],
+		};
+		const updatedComments = comments.map((mapComment) => {
+			if (mapComment.id === threadId) {
+				return {
+					...mapComment,
+					replies: [...mapComment.replies, reply],
+				};
+			}
+			return mapComment;
+		});
+		setComments(updatedComments);
+	};
+
 	return {
 		comments,
 		likeComment,
@@ -213,5 +236,6 @@ export const useCommentsService = (comments, setComments) => {
 		isCommentDisliked,
 		isReplyDisliked,
 		addComment,
+		addReply,
 	};
 };
