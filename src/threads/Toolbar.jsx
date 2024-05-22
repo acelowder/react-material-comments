@@ -7,16 +7,18 @@ import SmallTextButton from '../components/SmallTextButton';
 import ToggleIcon from '../components/ToggleIcon';
 import LikesCounter from '../components/LikesCounter';
 import InputContainer from '../user-input/InputContainer';
+import { IconButton } from '@mui/material';
 
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function Toolbar({ comment, threadId }) {
 	const [replying, setReplying] = useState(false);
 
-	const { comments, setComments } = useContext(commentsContext);
+	const { comments, setComments, userId } = useContext(commentsContext);
 
 	const {
 		likeComment,
@@ -29,7 +31,9 @@ export default function Toolbar({ comment, threadId }) {
 		getReplyNumLikes,
 		isReplyLiked,
 		isReplyDisliked,
-	} = useCommentsService(comments, setComments);
+		deleteComment,
+		deleteReply,
+	} = useCommentsService(comments, setComments, userId);
 
 	let onLike, onDislike, numLikes, isLiked, isDisliked;
 
@@ -46,6 +50,14 @@ export default function Toolbar({ comment, threadId }) {
 		isDisliked = isCommentDisliked(comment.id);
 		numLikes = getCommentNumLikes(comment.id);
 	}
+
+	const handleDelete = () => {
+		if (threadId) {
+			deleteReply(comment.id, threadId);
+		} else {
+			deleteComment(comment.id);
+		}
+	};
 
 	return (
 		<div>
@@ -74,6 +86,11 @@ export default function Toolbar({ comment, threadId }) {
 					onCancel={() => setReplying(false)}
 					initialText={threadId ? '@' + comment.author + ' ' : null}
 				/>
+			)}
+			{comment.authorId === userId && (
+				<IconButton onClick={handleDelete}>
+					<DeleteOutlineIcon />
+				</IconButton>
 			)}
 		</div>
 	);

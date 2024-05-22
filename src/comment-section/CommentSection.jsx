@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { initialComments } from './CommentSection.service.js';
 
@@ -12,31 +13,35 @@ export const commentsContext = createContext();
 const commentSectionStyles = {
 	width: '1000px',
 	padding: '20px',
+	minWidth: '500px',
 };
 
 export default function CommentSection() {
 	const [comments, setComments] = useState(initialComments);
+	const [userId, setUserId] = useState(uuidv4());
 
 	useEffect(() => {
 		if (!localStorage) return;
 
 		let localComments = localStorage.getItem('comments');
 		if (!localComments) return;
-
 		localComments = JSON.parse(localComments);
-		console.log('Loading: ', localComments);
 		setComments(localComments);
+
+		let localUserId = localStorage.getItem('userId');
+		if (!localUserId) return;
+		setUserId(localUserId);
 	}, []);
 
 	useEffect(() => {
 		if (comments === initialComments) return;
 
 		localStorage.setItem('comments', JSON.stringify(comments));
-		console.log('Saving: ', JSON.parse(localStorage.getItem('comments')));
+		localStorage.setItem('userId', userId);
 	}, [comments]);
 
 	return (
-		<commentsContext.Provider value={{ comments, setComments }}>
+		<commentsContext.Provider value={{ comments, setComments, userId }}>
 			<div style={commentSectionStyles}>
 				<Title>💬 Leave a Comment</Title>
 				<Divider />

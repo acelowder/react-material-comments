@@ -12,8 +12,12 @@ const commentFieldStyles = {
 };
 
 export default function CommentField({ onClick }) {
-	const { comments, setComments } = useContext(commentsContext);
-	const { addComment, addReply } = useCommentsService(comments, setComments);
+	const { comments, setComments, userId } = useContext(commentsContext);
+	const { addComment, addReply } = useCommentsService(
+		comments,
+		setComments,
+		userId
+	);
 
 	const { commentText, setCommentText, threadId } = useContext(draftContext);
 

@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-export const userId = uuidv4();
 export const userAvatar =
 	'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png';
-const userName = 'github-user-' + userId.split('-').pop();
 
 const JaneId = uuidv4();
 const JohnId = uuidv4();
@@ -44,7 +41,9 @@ export const initialComments = [
 	},
 ];
 
-export const useCommentsService = (comments, setComments) => {
+export const useCommentsService = (comments, setComments, userId) => {
+	const userName = 'github-user-' + userId.split('-').pop();
+
 	const likeComment = (id) => {
 		const updatedComments = comments.map((mapComment) => {
 			if (mapComment.id === id) {
@@ -223,6 +222,28 @@ export const useCommentsService = (comments, setComments) => {
 		setComments(updatedComments);
 	};
 
+	const deleteComment = (id) => {
+		const updatedComments = comments.filter(
+			(mapComment) => mapComment.id !== id
+		);
+		setComments(updatedComments);
+	};
+
+	const deleteReply = (id, threadId) => {
+		const updatedComments = comments.map((mapComment) => {
+			if (mapComment.id === threadId) {
+				return {
+					...mapComment,
+					replies: mapComment.replies.filter(
+						(mapReply) => mapReply.id !== id
+					),
+				};
+			}
+			return mapComment;
+		});
+		setComments(updatedComments);
+	};
+
 	return {
 		comments,
 		likeComment,
@@ -237,5 +258,8 @@ export const useCommentsService = (comments, setComments) => {
 		isReplyDisliked,
 		addComment,
 		addReply,
+		deleteComment,
+		deleteReply,
+		userName,
 	};
 };

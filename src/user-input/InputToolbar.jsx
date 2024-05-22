@@ -16,8 +16,8 @@ const toolbarStyles = {
 };
 
 export default function InputToolbar() {
-	const { comments, setComments } = useContext(commentsContext);
-	const { addComment } = useCommentsService(comments, setComments);
+	const { comments, setComments, userId } = useContext(commentsContext);
+	const { addComment } = useCommentsService(comments, setComments, userId);
 
 	const {
 		commentText,
