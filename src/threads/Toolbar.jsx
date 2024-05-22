@@ -79,6 +79,11 @@ export default function Toolbar({ comment, threadId }) {
 			<SmallTextButton onClick={() => setReplying(!replying)}>
 				Reply
 			</SmallTextButton>
+			{comment.authorId === userId && (
+				<IconButton onClick={handleDelete}>
+					<DeleteOutlineIcon />
+				</IconButton>
+			)}
 			{replying && (
 				<InputContainer
 					submitText={'Reply'}
@@ -86,11 +91,6 @@ export default function Toolbar({ comment, threadId }) {
 					onCancel={() => setReplying(false)}
 					initialText={threadId ? '@' + comment.author + ' ' : null}
 				/>
-			)}
-			{comment.authorId === userId && (
-				<IconButton onClick={handleDelete}>
-					<DeleteOutlineIcon />
-				</IconButton>
 			)}
 		</div>
 	);
