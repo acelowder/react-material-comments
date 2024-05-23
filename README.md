@@ -3,11 +3,11 @@
 </h1>
 
 A functional comment section app built with React using Google's Material UI Design components. The app allows users to add comments, reply to a comment thread, and like comments. Users can also delete their comments after creating them.<br/><br/>
-You can view the deployed build at <a href="https://www.acelowder.com/comments">https://www.acelowder.com/comments</a>
+You can view the deployed build at <a href="https://acelowder-comments.netlify.app/">https://acelowder-comments.netlify.app/</a>
 
 &nbsp;
 
-<a href="https://www.acelowder.com/comments"><img src="example.gif" width="1280"></a>
+<a href="https://acelowder-comments.netlify.app/"><img src="example.gif" width="1280"></a>
 <div align="right">
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/18919f1d-06eb-481a-b82a-94a11fbbde44/deploy-status)](https://acelowder-comments.netlify.app/)
